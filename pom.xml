@@ -9,9 +9,9 @@
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>com.antonioalejandro.smkt</groupId>
-	<artifactId>eureka</artifactId>
+	<artifactId>smkt-eureka</artifactId>
 	<version>0.0.1</version>
-	<name>eureka</name>
+	<name>smkt-eureka</name>
 	<description>Eureka Server for SmartKitchen</description>
 
 	<properties>
