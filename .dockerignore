@@ -1,13 +1,14 @@
 .mvn/
 .settings/
 bin/
-src/
+target/
+.vscode/
 .classpath
 .gitignore
 .project
 mvnw
 mvnw.cmd
-pom.xml
 README.md
-buildDocker.sh
+LICENSE
+.github/
 

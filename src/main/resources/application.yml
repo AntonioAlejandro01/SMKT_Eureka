@@ -1,0 +1,13 @@
+spring:
+  application:
+    name: smkt-eureka
+    
+server:
+  port: 8761
+
+eureka:
+  client:
+    fetch-registry: false
+    register-with-eureka: false
+
+

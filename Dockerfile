@@ -1,9 +1,23 @@
+FROM maven:3-adoptopenjdk-11 as build
+
+WORKDIR /opt/build
+
+COPY . .
+
+RUN mvn clean compile install
+
+RUN mv ./target/smkt-eureka.jar /app.jar
+
 FROM openjdk:11
 
 WORKDIR /opt/server
 
-COPY ./target/smkt-eureka-1.0.0.jar ./app.jar
+COPY --from=build /app.jar ./app.jar
 
-EXPOSE 8761
+ARG port=8761
 
-CMD [ "java", "-jar","./app.jar" ]
+ENV PORT ${port}
+
+EXPOSE ${PORT}
+
+CMD java -jar app.jar --server.port="${PORT}"
