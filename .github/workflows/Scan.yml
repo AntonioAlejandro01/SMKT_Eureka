@@ -17,8 +17,11 @@ jobs:
         with:
           to: ${{ secrets.TELEGRAM_TO }}
           token: ${{ secrets.TELEGRAM_TOKEN }}
+          format: markdown
           message: |
-            The action Scan has started.
+            # ${{github.repository}}
+            ## Scan
+            The action has started by ${{github.actor}}
             See how to go: ${{github.server_url}}/${{github.repository}}/actions/runs/${{github.run_id}}
       - uses: actions/checkout@v2
         with:
