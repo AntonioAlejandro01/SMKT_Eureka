@@ -61,7 +61,7 @@ jobs:
           token: ${{ secrets.TELEGRAM_TOKEN }}
           format: html
           message: |
-            The action Scan for SMKT_Eureka <b>SUCCESS<b>.
+            The action Scan for SMKT_Eureka <b>SUCCESS</b>.
             See the results <a href="https://sonarcloud.io/dashboard?id=AntonioAlejandro01_SMKT_Eureka">here</a>.
 
   notify-final-failure:
