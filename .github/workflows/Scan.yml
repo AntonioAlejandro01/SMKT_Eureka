@@ -59,9 +59,10 @@ jobs:
         with:
           to: ${{ secrets.TELEGRAM_TO }}
           token: ${{ secrets.TELEGRAM_TOKEN }}
+          format: html
           message: |
-            The action Scan fron SMKT_Eureka has finished and all went ok.
-            See the results: https://sonarcloud.io/dashboard?id=AntonioAlejandro01_SMKT_Eureka
+            The action Scan for SMKT_Eureka <b>SUCCESS<b>.
+            See the results <a href="https://sonarcloud.io/dashboard?id=AntonioAlejandro01_SMKT_Eureka">here</a>.
 
   notify-final-failure:
     name: Notify Failure 
@@ -76,6 +77,5 @@ jobs:
           token: ${{ secrets.TELEGRAM_TOKEN }}
           format: html
           message: |
-            <b>The action Scan for SMKT_Eureka has finished.</b>
-            Please, see what can be wrong <a href="https://sonarcloud.io/dashboard?id=AntonioAlejandro01_SMKT_Eureka">here</a>
-
+            The action Scan for SMKT_Eureka <b>FAILED</b>.
+            Please, see what can be wrong <a href="https://sonarcloud.io/dashboard?id=AntonioAlejandro01_SMKT_Eureka">here</a>.
