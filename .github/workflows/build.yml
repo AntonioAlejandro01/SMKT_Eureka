@@ -2,8 +2,9 @@ name: Build
 on:
   push:
     branches:
-      - master
+      - main
   pull_request:
+    branches: [main]
     types: [closed]
 jobs:
   sonar:
@@ -57,7 +58,16 @@ jobs:
         uses: docker/build-push-action@v2
         with:
           push: true
-          tags:  ${{ secrets.DOCKERHUB_USERNAME }}/smkt-eureka:latest
+          tags:  ${{ secrets.DOCKERHUB_USERNAME }}/smkt-eureka:snapshot
       -
         name: Image digest
         run: echo ${{ steps.docker_build.outputs.digest }}
+      - 
+        name: Send Message
+        uses: appleboy/telegram-action@master
+        with:
+          to: ${{ secrets.TELEGRAM_TO }}
+          token: ${{ secrets.TELEGRAM_TOKEN }}
+          message: |
+            The ${{ github.event_name }} event triggered final step.
+            echo This event is a pull request that had an assignee removed.
