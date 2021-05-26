@@ -17,11 +17,11 @@ jobs:
         with:
           to: ${{ secrets.TELEGRAM_TO }}
           token: ${{ secrets.TELEGRAM_TOKEN }}
-          format: markdown
+          format: html
           message: |
-            *Action for ${{github.repository}} repository*
-            It was stared by [${{github.actor}}](${{github.server_url}}/${{github.actor}})
-            See how to go [here](${{github.server_url}}/${{github.repository}}/actions/runs/${{github.run_id}})
+            <b>Action for ${{github.repository}} repository</b>
+            It was stared by <a href="${{github.server_url}}/${{github.actor}}">${{github.actor}}</a>
+            See how to go <a href="${{github.server_url}}/${{github.repository}}/actions/runs/${{github.run_id}}">here<a/>
       - uses: actions/checkout@v2
         with:
           fetch-depth: 0  # Shallow clones should be disabled for a better relevancy of analysis
