@@ -19,7 +19,7 @@ jobs:
           token: ${{ secrets.TELEGRAM_TOKEN }}
           format: html
           message: |
-            <b>Action Scan for ${{github.repository}} repository 🏁</b>
+            🏁🏁🏁🏁 ${{github.workflow}} 🏁🏁🏁🏁
             See how to go <a href="${{github.server_url}}/${{github.repository}}/actions/runs/${{github.run_id}}">here</a>
             The action was initiated by <a href="${{github.server_url}}/${{github.actor}}">${{github.actor}}</a>.
             Last commit: <b>${{github.SHA}}</b>
