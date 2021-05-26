@@ -1,4 +1,4 @@
-name: Build
+name: Build Snapshot
 on:
   push:
     branches:
@@ -7,6 +7,22 @@ on:
     branches: [main]
     types: [closed]
 jobs:
+  notify-init:
+    name: Notify Init Action 
+    runs-on: ubuntu-latest
+    if: ${{ always() }}
+    steps:
+      - name: Send Message
+        uses: appleboy/telegram-action@master
+        with:
+          to: ${{ secrets.TELEGRAM_TO }}
+          token: ${{ secrets.TELEGRAM_TOKEN }}
+          format: html
+          message: |
+            <b>Action Build Snapshot for ${{github.repository}} repository 🏁</b>
+            See how to go <a href="${{github.server_url}}/${{github.repository}}/actions/runs/${{github.run_id}}">here</a>
+            The action was initiated by <a href="${{github.server_url}}/${{github.actor}}">${{github.actor}}</a>.
+            Last commit: <b>${{github.SHA}}</b>
   sonar:
     name: Sonar
     runs-on: ubuntu-latest
@@ -71,3 +87,33 @@ jobs:
           message: |
             The ${{ github.event_name }} event triggered final step.
             echo This event is a pull request that had an assignee removed.
+  notify-final-ok:
+    name: Notify Success 
+    runs-on: ubuntu-latest
+    needs: [sonar]
+    if: ${{ success() }}
+    steps:
+      - name: Send Message
+        uses: appleboy/telegram-action@master
+        with:
+          to: ${{ secrets.TELEGRAM_TO }}
+          token: ${{ secrets.TELEGRAM_TOKEN }}
+          format: html
+          message: |
+            The action Scan for SMKT_Eureka <b>SUCCESS</b>🆗.
+            See the results <a href="https://sonarcloud.io/dashboard?id=AntonioAlejandro01_SMKT_Eureka">here</a>.
+  notify-final-failure:
+    name: Notify Failure 
+    runs-on: ubuntu-latest
+    if: ${{ failure() }}
+    needs: [sonar]
+    steps:
+      - name: Send Message
+        uses: appleboy/telegram-action@master
+        with:
+          to: ${{ secrets.TELEGRAM_TO }}
+          token: ${{ secrets.TELEGRAM_TOKEN }}
+          format: html
+          message: |
+            The action Scan for SMKT_Eureka <b>FAILED</b> 🛑🛑.
+            Please, see what can be wrong <a href="https://sonarcloud.io/dashboard?id=AntonioAlejandro01_SMKT_Eureka">here</a>.
