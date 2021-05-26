@@ -77,6 +77,5 @@ jobs:
           format: html
           message: |
             <b>The action Scan for SMKT_Eureka has finished.</b>
-            Please, see what can be wrong.
-            https://sonarcloud.io/dashboard?id=AntonioAlejandro01_SMKT_Eureka
+            Please, see what can be wrong <a href="https://sonarcloud.io/dashboard?id=AntonioAlejandro01_SMKT_Eureka">here</a>
 
