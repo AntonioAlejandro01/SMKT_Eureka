@@ -19,10 +19,9 @@ jobs:
           token: ${{ secrets.TELEGRAM_TOKEN }}
           format: markdown
           message: |
-            # ${{github.repository}}
-            ## Scan
-            The action has started by ${{github.actor}}
-            See how to go: ${{github.server_url}}/${{github.repository}}/actions/runs/${{github.run_id}}
+            *Action for ${{github.repository}} repository*
+            It was stared by [${{github.actor}}](${{github.server_url}}/${{github.actor}})
+            See how to go [here](${{github.server_url}}/${{github.repository}}/actions/runs/${{github.run_id}})
       - uses: actions/checkout@v2
         with:
           fetch-depth: 0  # Shallow clones should be disabled for a better relevancy of analysis
