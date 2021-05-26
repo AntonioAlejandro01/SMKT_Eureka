@@ -64,7 +64,7 @@ jobs:
             See the results: https://sonarcloud.io/dashboard?id=AntonioAlejandro01_SMKT_Eureka
 
   notify-final-failure:
-    name: Notify Success 
+    name: Notify Failure 
     runs-on: ubuntu-latest
     if: ${{ failure() }}
     needs: [sonar]
@@ -74,8 +74,9 @@ jobs:
         with:
           to: ${{ secrets.TELEGRAM_TO }}
           token: ${{ secrets.TELEGRAM_TOKEN }}
+          format: html
           message: |
-            The action Scan for SMKT_Eureka has finished.
+            <b>The action Scan for SMKT_Eureka has finished.</b>
             Please, see what can be wrong.
             https://sonarcloud.io/dashboard?id=AntonioAlejandro01_SMKT_Eureka
 
