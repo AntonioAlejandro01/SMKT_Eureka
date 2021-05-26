@@ -78,15 +78,6 @@ jobs:
       -
         name: Image digest
         run: echo ${{ steps.docker_build.outputs.digest }}
-      - 
-        name: Send Message
-        uses: appleboy/telegram-action@master
-        with:
-          to: ${{ secrets.TELEGRAM_TO }}
-          token: ${{ secrets.TELEGRAM_TOKEN }}
-          message: |
-            The ${{ github.event_name }} event triggered final step.
-            echo This event is a pull request that had an assignee removed.
   notify-final-ok:
     name: Notify Success 
     runs-on: ubuntu-latest
