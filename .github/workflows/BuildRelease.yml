@@ -89,9 +89,8 @@ jobs:
     - uses: actions/checkout@v1
     - uses: ncipollo/release-action@v1
       with:
-        allowUpdates: true
         artifacts: "release.tar.gz,foo/*.txt"
-        body: "# Snapshots Releases"
+        body: "# Stable Releases"
         name: Snapshot
         token: ${{ secrets.GITHUB_TOKEN }}
   notify-final-ok:
