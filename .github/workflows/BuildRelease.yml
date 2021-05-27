@@ -17,7 +17,8 @@ jobs:
           token: ${{ secrets.TELEGRAM_TOKEN }}
           format: html
           message: |
-            🏁🏁🏁 <a href="${{github.server_url}}/${{github.repository}}/actions/runs/${{github.run_id}}">${{github.workflow}}</a>
+            🏁🏁🏁 
+            <a href="${{github.server_url}}/${{github.repository}}/actions/runs/${{github.run_id}}">${{github.workflow}}</a>
             Repo: ${{github.repository}} 
             Initiated by <a href="${{github.server_url}}/${{github.actor}}">${{github.actor}}</a>.
   sonar:
@@ -50,7 +51,7 @@ jobs:
         run: mvn -B verify org.sonarsource.scanner.maven:sonar-maven-plugin:sonar
   docker:
     name: Docker
-    needs: [sonar]
+    needs: [ sonar ]
     runs-on: ubuntu-latest
     steps:
       - 
@@ -83,6 +84,7 @@ jobs:
   release:
     name: Create Release
     runs-on: ubuntu-latest
+    needs: [ docker ]
     steps:
     - uses: actions/checkout@v1
     - uses: ncipollo/release-action@v1

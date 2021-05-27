@@ -21,7 +21,8 @@ jobs:
           format: html
           disable_web_page_preview: true
           message: |
-            🏁🏁🏁 <a href="${{github.server_url}}/${{github.repository}}/actions/runs/${{github.run_id}}">${{github.workflow}}</a> for branch <i>${{env.GIT_BRANCH_NAME}}</i>
+            🏁🏁🏁 
+            <a href="${{github.server_url}}/${{github.repository}}/actions/runs/${{github.run_id}}">${{github.workflow}}</a> for branch <i>${{env.GIT_BRANCH_NAME}}</i>
             Initiated by <a href="${{github.server_url}}/${{github.actor}}">${{github.actor}}</a>.
             Commit: <b>${{github.SHA}}</b>
   sonar:
