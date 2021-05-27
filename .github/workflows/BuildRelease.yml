@@ -1,8 +1,9 @@
-name: Build Snapshot
-on:
+name: Build Stable Version
+
+on: 
   push:
-    branches:
-      - main
+    tags:
+    - '*'
 jobs:
   notify-init:
     name: Notify Init Action 
@@ -52,6 +53,9 @@ jobs:
     needs: [sonar]
     runs-on: ubuntu-latest
     steps:
+      - 
+        name: Save Tag name 
+        run: echo "GIT_TAG=`echo $(git describe --tags --abbrev=0)`" >> $GITHUB_ENV
       -
         name: Set up QEMU
         uses: docker/setup-qemu-action@v1
@@ -70,7 +74,9 @@ jobs:
         uses: docker/build-push-action@v2
         with:
           push: true
-          tags:  ${{ secrets.DOCKERHUB_USERNAME }}/smkt-eureka:snapshot
+          tags:  |
+            ${{ secrets.DOCKERHUB_USERNAME }}/smkt-eureka:${{env.GIT_TAG}}
+            ${{ secrets.DOCKERHUB_USERNAME }}/smkt-eureka:latest
       -
         name: Image digest
         run: echo ${{ steps.docker_build.outputs.digest }}
@@ -147,4 +153,4 @@ jobs:
           format: html
           message: |
             🛑 🛑 🛑
-            The job Docker for SMKT_Eureka on branch ${{github.workflow}} <b>FAILED</b>.
+            The job Docker for SMKT_Eu
