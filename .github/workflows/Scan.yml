@@ -11,6 +11,8 @@ jobs:
     name: Notify Action init
     runs-on: ubuntu-latest
     steps:
+      - name: Query Git branch name
+        uses: petehouston/github-actions-query-branch-name@892c80ceeff6234cd58701b5fea41e43b0398048
       - name: Send Message
         uses: appleboy/telegram-action@master
         with:
@@ -19,7 +21,7 @@ jobs:
           format: html
           disable_web_page_preview: true
           message: |
-            🏁🏁🏁🏁 <a href="${{github.server_url}}/${{github.repository}}/actions/runs/${{github.run_id}}">${{github.workflow}}</a> for ${{github.ref##*/}}🏁🏁🏁🏁
+            🏁🏁🏁🏁 <a href="${{github.server_url}}/${{github.repository}}/actions/runs/${{github.run_id}}">${{github.workflow}}</a> for ${{env.GIT_BRANCH_NAME}}🏁🏁🏁🏁
             Initiated by <a href="${{github.server_url}}/${{github.actor}}">${{github.actor}}</a>.
             Commit: <b>${{github.SHA}}</b>
   sonar:
@@ -65,7 +67,7 @@ jobs:
           format: html
           message: |
             🆗 🆗 🆗
-            The action Scan for SMKT_Eureka on branch ${{github.ref##*/}} <b>SUCCESS</b>.
+            The action Scan for SMKT_Eureka on branch ${{env.GIT_BRANCH_NAME}} <b>SUCCESS</b>.
             See the results <a href="https://sonarcloud.io/dashboard?id=AntonioAlejandro01_SMKT_Eureka">here</a>.
 
   notify-final-failure:
@@ -82,5 +84,5 @@ jobs:
           format: html
           message: |
             🛑 🛑 🛑
-            The action Scan for SMKT_Eureka on branch ${{github.ref##*/}} <b>FAILED</b>.
+            The action Scan for SMKT_Eureka on branch ${{env.GIT_BRANCH_NAME}} <b>FAILED</b>.
             Please, see what can was wrong <a href="https://sonarcloud.io/dashboard?id=AntonioAlejandro01_SMKT_Eureka">here</a>.
