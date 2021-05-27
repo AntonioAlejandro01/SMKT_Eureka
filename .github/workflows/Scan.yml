@@ -21,7 +21,7 @@ jobs:
           format: html
           disable_web_page_preview: true
           message: |
-            🏁🏁🏁🏁 <a href="${{github.server_url}}/${{github.repository}}/actions/runs/${{github.run_id}}">${{github.workflow}}</a> for ${{env.GIT_BRANCH_NAME}}🏁🏁🏁🏁
+            🏁🏁🏁 <a href="${{github.server_url}}/${{github.repository}}/actions/runs/${{github.run_id}}">${{github.workflow}}</a> for branch <i>${{env.GIT_BRANCH_NAME}}</i>
             Initiated by <a href="${{github.server_url}}/${{github.actor}}">${{github.actor}}</a>.
             Commit: <b>${{github.SHA}}</b>
   sonar:
@@ -59,6 +59,8 @@ jobs:
     needs: [sonar]
     if: ${{ success() }}
     steps:
+      - name: Query Git branch name
+        uses: petehouston/github-actions-query-branch-name@892c80ceeff6234cd58701b5fea41e43b0398048
       - name: Send Message
         uses: appleboy/telegram-action@master
         with:
@@ -76,6 +78,8 @@ jobs:
     if: ${{ failure() }}
     needs: [sonar]
     steps:
+      - name: Query Git branch name
+        uses: petehouston/github-actions-query-branch-name@892c80ceeff6234cd58701b5fea41e43b0398048
       - name: Send Message
         uses: appleboy/telegram-action@master
         with:

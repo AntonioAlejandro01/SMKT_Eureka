@@ -16,7 +16,7 @@ jobs:
           token: ${{ secrets.TELEGRAM_TOKEN }}
           format: html
           message: |
-            🏁🏁🏁🏁 <a href="${{github.server_url}}/${{github.repository}}/actions/runs/${{github.run_id}}">${{github.workflow}}</a> 🏁🏁🏁🏁
+            🏁🏁🏁 <a href="${{github.server_url}}/${{github.repository}}/actions/runs/${{github.run_id}}">${{github.workflow}}</a>
             Repo: ${{github.repository}} 
             Initiated by <a href="${{github.server_url}}/${{github.actor}}">${{github.actor}}</a>.
   sonar:
@@ -88,7 +88,7 @@ jobs:
           format: html
           message: |
             🆗 🆗 🆗
-            The job Scan for SMKT_Eureka on branch ${{github.ref##*/}} <b>SUCCESS</b>.
+            The job Scan for SMKT_Eureka on ${{github.workflow}} <b>SUCCESS</b>.
             See the results <a href="https://sonarcloud.io/dashboard?id=AntonioAlejandro01_SMKT_Eureka">here</a>.
   notify-final-failure:
     name: Notify Failure 
@@ -104,7 +104,7 @@ jobs:
           format: html
           message: |
             🛑 🛑 🛑
-            The job Scan for SMKT_Eureka on branch ${{github.ref##*/}} <b>FAILED</b>.
+            The job Scan for SMKT_Eureka on ${{github.workflow}} <b>FAILED</b>.
             Please, see what can was wrong <a href="https://sonarcloud.io/dashboard?id=AntonioAlejandro01_SMKT_Eureka">here</a>
   notify-final-docker-ok:
     name: Notify Docker Success 
@@ -120,7 +120,7 @@ jobs:
           format: html
           message: |
             🆗 🆗 🆗
-            The job Docker for SMKT_Eureka on branch ${{github.ref##*/}} <b>SUCCESS</b>.
+            The job Docker for SMKT_Eureka on ${{github.workflow}} <b>SUCCESS</b>.
   notify-final-docker-failure:
     name: Notify Docker Failure 
     runs-on: ubuntu-latest
@@ -135,4 +135,4 @@ jobs:
           format: html
           message: |
             🛑 🛑 🛑
-            The job Docker for SMKT_Eureka on branch ${{github.ref##*/}} <b>FAILED</b>.
+            The job Docker for SMKT_Eureka on branch ${{github.workflow}} <b>FAILED</b>.

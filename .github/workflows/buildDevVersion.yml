@@ -18,7 +18,7 @@ jobs:
           token: ${{ secrets.TELEGRAM_TOKEN }}
           format: html
           message: |
-            🏁🏁🏁🏁 <a href="${{github.server_url}}/${{github.repository}}/actions/runs/${{github.run_id}}">${{github.workflow}}</a> 🏁🏁🏁🏁
+            🏁🏁🏁 <a href="${{github.server_url}}/${{github.repository}}/actions/runs/${{github.run_id}}">${{github.workflow}}</a>
             Repo: ${{github.repository}} 
             Initiated by <a href="${{github.server_url}}/${{github.actor}}">${{github.actor}}</a>.
   docker:
