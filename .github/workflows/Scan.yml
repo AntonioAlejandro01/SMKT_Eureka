@@ -2,11 +2,10 @@ name: Scan
 
 on:
   push:
-    branches:
-      - develop
+    branches-ignore: [ main, develop ]
   pull_request:
-    branches: [main,develop]
-    types: [opened,synchronize]
+    branches-ignore: [ main, develop ]
+    types: [ opened, synchronize, closed, reopened ]
 jobs:
   notify-init:
     name: Notify Action init
@@ -18,11 +17,11 @@ jobs:
           to: ${{ secrets.TELEGRAM_TO }}
           token: ${{ secrets.TELEGRAM_TOKEN }}
           format: html
+          disable_web_page_preview: true
           message: |
-            🏁🏁🏁🏁 ${{github.workflow}} 🏁🏁🏁🏁
-            See how to go <a href="${{github.server_url}}/${{github.repository}}/actions/runs/${{github.run_id}}">here</a>
-            The action was initiated by <a href="${{github.server_url}}/${{github.actor}}">${{github.actor}}</a>.
-            Last commit: <b>${{github.SHA}}</b>
+            🏁🏁🏁🏁 <a href="${{github.server_url}}/${{github.repository}}/actions/runs/${{github.run_id}}">${{github.workflow}}</a> for ${{github.ref##*/}}🏁🏁🏁🏁
+            Initiated by <a href="${{github.server_url}}/${{github.actor}}">${{github.actor}}</a>.
+            Commit: <b>${{github.SHA}}</b>
   sonar:
     name: Sonar
     runs-on: ubuntu-latest
@@ -65,7 +64,8 @@ jobs:
           token: ${{ secrets.TELEGRAM_TOKEN }}
           format: html
           message: |
-            The action Scan for SMKT_Eureka <b>SUCCESS</b>🆗.
+            🆗 🆗 🆗
+            The action Scan for SMKT_Eureka on branch ${{github.ref##*/}} <b>SUCCESS</b>.
             See the results <a href="https://sonarcloud.io/dashboard?id=AntonioAlejandro01_SMKT_Eureka">here</a>.
 
   notify-final-failure:
@@ -81,5 +81,6 @@ jobs:
           token: ${{ secrets.TELEGRAM_TOKEN }}
           format: html
           message: |
-            The action Scan for SMKT_Eureka <b>FAILED</b> 🛑🛑.
-            Please, see what can be wrong <a href="https://sonarcloud.io/dashboard?id=AntonioAlejandro01_SMKT_Eureka">here</a>.
+            🛑 🛑 🛑
+            The action Scan for SMKT_Eureka on branch ${{github.ref##*/}} <b>FAILED</b>.
+            Please, see what can was wrong <a href="https://sonarcloud.io/dashboard?id=AntonioAlejandro01_SMKT_Eureka">here</a>.
