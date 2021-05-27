@@ -4,11 +4,6 @@ on:
   push:
     branches:
       - develop
-  pull_request:
-    branches: 
-      - develop
-    types: [ closed ]
-
 jobs:
   notify-action-init:
     name: Notify Action Init
@@ -60,6 +55,8 @@ jobs:
     needs: [sonar]
     if: ${{ success() }}
     steps:
+      - name: Query Git branch name
+        uses: petehouston/github-actions-query-branch-name@892c80ceeff6234cd58701b5fea41e43b0398048
       - name: Send Message
         uses: appleboy/telegram-action@master
         with:
@@ -68,7 +65,7 @@ jobs:
           format: html
           message: |
             🆗 🆗 🆗
-            The job Scan for SMKT_Eureka on branch ${{github.ref##*/}} <b>SUCCESS</b>.
+            The job Scan for SMKT_Eureka on branch <i>${{env.GIT_BRANCH_NAME}}</i> <b>SUCCESS</b>.
             See the results <a href="https://sonarcloud.io/dashboard?id=AntonioAlejandro01_SMKT_Eureka">here</a>.
   notify-final-failure:
     name: Notify Failure 
@@ -76,6 +73,8 @@ jobs:
     if: ${{ failure() }}
     needs: [sonar]
     steps:
+      - name: Query Git branch name
+        uses: petehouston/github-actions-query-branch-name@892c80ceeff6234cd58701b5fea41e43b0398048
       - name: Send Message
         uses: appleboy/telegram-action@master
         with:
@@ -84,7 +83,7 @@ jobs:
           format: html
           message: |
             🛑 🛑 🛑
-            The job Scan for SMKT_Eureka on branch ${{github.ref##*/}} <b>FAILED</b>.
+            The job Scan for SMKT_Eureka on branch <i>${{env.GIT_BRANCH_NAME}}</i> <b>FAILED</b>.
             Please, see what can was wrong <a href="https://sonarcloud.io/dashboard?id=AntonioAlejandro01_SMKT_Eureka">here</a>
   notify-final-docker-ok:
     name: Notify Docker Success 
@@ -92,6 +91,8 @@ jobs:
     needs: [sonar]
     if: ${{ success() }}
     steps:
+      - name: Query Git branch name
+        uses: petehouston/github-actions-query-branch-name@892c80ceeff6234cd58701b5fea41e43b0398048
       - name: Send Message
         uses: appleboy/telegram-action@master
         with:
@@ -100,13 +101,15 @@ jobs:
           format: html
           message: |
             🆗 🆗 🆗
-            The job Docker for SMKT_Eureka on branch ${{github.ref##*/}} <b>SUCCESS</b>.
+            The job Docker for SMKT_Eureka on branch <i>${{env.GIT_BRANCH_NAME}}</i> <b>SUCCESS</b>.
   notify-final-docker-failure:
     name: Notify Docker Failure 
     runs-on: ubuntu-latest
     if: ${{ failure() }}
     needs: [sonar]
     steps:
+      - name: Query Git branch name
+        uses: petehouston/github-actions-query-branch-name@892c80ceeff6234cd58701b5fea41e43b0398048
       - name: Send Message
         uses: appleboy/telegram-action@master
         with:
@@ -115,4 +118,4 @@ jobs:
           format: html
           message: |
             🛑 🛑 🛑
-            The job Docker for SMKT_Eureka on branch ${{github.ref##*/}} <b>FAILED</b>.
+            The job Docker for SMKT_Eureka on branch <i>${{env.GIT_BRANCH_NAME}}</i> <b>FAILED</b>.
