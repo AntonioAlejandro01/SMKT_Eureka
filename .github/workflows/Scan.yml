@@ -2,12 +2,29 @@ name: Scan
 
 on:
   push:
-    branches:
-      - develop
+    branches-ignore: [ main, develop ]
   pull_request:
-    branches: [main,develop]
-    types: [opened,synchronize]
+    branches-ignore: [ main, develop ]
+    types: [ opened, synchronize, closed, reopened ]
 jobs:
+  notify-init:
+    name: Notify Action init
+    runs-on: ubuntu-latest
+    steps:
+      - name: Query Git branch name
+        uses: petehouston/github-actions-query-branch-name@892c80ceeff6234cd58701b5fea41e43b0398048
+      - name: Send Message
+        uses: appleboy/telegram-action@master
+        with:
+          to: ${{ secrets.TELEGRAM_TO }}
+          token: ${{ secrets.TELEGRAM_TOKEN }}
+          format: html
+          disable_web_page_preview: true
+          message: |
+            🏁🏁🏁 
+            <a href="${{github.server_url}}/${{github.repository}}/actions/runs/${{github.run_id}}">${{github.workflow}}</a> for branch <i>${{env.GIT_BRANCH_NAME}}</i>
+            Initiated by <a href="${{github.server_url}}/${{github.actor}}">${{github.actor}}</a>.
+            Commit: <b>${{github.SHA}}</b>
   sonar:
     name: Sonar
     runs-on: ubuntu-latest
@@ -36,11 +53,41 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}  # Needed to get PR information, if any
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
         run: mvn -B verify org.sonarsource.scanner.maven:sonar-maven-plugin:sonar
+      
+  notify-final-ok:
+    name: Notify Success 
+    runs-on: ubuntu-latest
+    needs: [sonar]
+    if: ${{ success() }}
+    steps:
+      - name: Query Git branch name
+        uses: petehouston/github-actions-query-branch-name@892c80ceeff6234cd58701b5fea41e43b0398048
       - name: Send Message
         uses: appleboy/telegram-action@master
         with:
           to: ${{ secrets.TELEGRAM_TO }}
           token: ${{ secrets.TELEGRAM_TOKEN }}
+          format: html
           message: |
-            The ${{ github.event_name }} event triggered final step.
-            echo This event is a pull request that had an assignee removed.
+            🆗 🆗 🆗
+            The action Scan for SMKT_Eureka on branch ${{env.GIT_BRANCH_NAME}} <b>SUCCESS</b>.
+            See the results <a href="https://sonarcloud.io/dashboard?id=AntonioAlejandro01_SMKT_Eureka">here</a>.
+
+  notify-final-failure:
+    name: Notify Failure 
+    runs-on: ubuntu-latest
+    if: ${{ failure() }}
+    needs: [sonar]
+    steps:
+      - name: Query Git branch name
+        uses: petehouston/github-actions-query-branch-name@892c80ceeff6234cd58701b5fea41e43b0398048
+      - name: Send Message
+        uses: appleboy/telegram-action@master
+        with:
+          to: ${{ secrets.TELEGRAM_TO }}
+          token: ${{ secrets.TELEGRAM_TOKEN }}
+          format: html
+          message: |
+            🛑 🛑 🛑
+            The action Scan for SMKT_Eureka on branch ${{env.GIT_BRANCH_NAME}} <b>FAILED</b>.
+            Please, see what can was wrong <a href="https://sonarcloud.io/dashboard?id=AntonioAlejandro01_SMKT_Eureka">here</a>.
