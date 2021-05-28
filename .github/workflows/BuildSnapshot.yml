@@ -83,9 +83,9 @@ jobs:
     - uses: actions/checkout@v1
     - uses: ncipollo/release-action@v1
       with:
-        tag: main
+        tag: snapshot
+        prerelease: true
         allowUpdates: true
-        artifacts: "release.tar.gz,foo/*.txt"
         body: "# Snapshots Releases"
         name: Snapshot
         token: ${{ secrets.GITHUB_TOKEN }}

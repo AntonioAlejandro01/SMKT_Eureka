@@ -1,8 +1,6 @@
 name: Lint Code Base
 
-on:
-  push:
-    branches: [main]
+on: [push]
 
 jobs:
   lint:
@@ -13,9 +11,11 @@ jobs:
         uses: actions/checkout@v2
         with:
           fetch-depth: 0
+      - name: Query Git branch name
+        uses: petehouston/github-actions-query-branch-name@892c80ceeff6234cd58701b5fea41e43b0398048
       - name: Lint Code Base
         uses: github/super-linter@v4
         env:
           VALIDATE_ALL_CODEBASE: false
-          DEFAULT_BRANCH: main
+          DEFAULT_BRANCH: "${{env.GIT_BRANCH}}"
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

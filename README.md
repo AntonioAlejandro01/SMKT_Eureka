@@ -1,7 +1,7 @@
 # SMKT_Eureka
 Eureka Discover Service for Smarkitchen App
 
-[![Build Dev](https://github.com/AntonioAlejandro01/SMKT_Eureka/actions/workflows/buildDevVersion.yml/badge.svg)](https://github.com/AntonioAlejandro01/SMKT_Eureka/actions/workflows/buildDevVersion.yml) [![Build Snapshot](https://github.com/AntonioAlejandro01/SMKT_Eureka/actions/workflows/BuildSnapshot.yml/badge.svg)](https://github.com/AntonioAlejandro01/SMKT_Eureka/actions/workflows/BuildSnapshot.yml) [![Scan](https://github.com/AntonioAlejandro01/SMKT_Eureka/actions/workflows/Scan.yml/badge.svg?branch=main)](https://github.com/AntonioAlejandro01/SMKT_Eureka/actions/workflows/Scan.yml)
+[![Build Dev](https://github.com/AntonioAlejandro01/SMKT_Eureka/actions/workflows/buildDevVersion.yml/badge.svg)](https://github.com/AntonioAlejandro01/SMKT_Eureka/actions/workflows/buildDevVersion.yml) [![Build Snapshot](https://github.com/AntonioAlejandro01/SMKT_Eureka/actions/workflows/BuildSnapshot.yml/badge.svg)](https://github.com/AntonioAlejandro01/SMKT_Eureka/actions/workflows/BuildSnapshot.yml) [![Scan](https://github.com/AntonioAlejandro01/SMKT_Eureka/actions/workflows/Scan.yml/badge.svg?branch=main)](https://github.com/AntonioAlejandro01/SMKT_Eureka/actions/workflows/Scan.yml) 
 
 
 ## Use With Docker
