@@ -1,12 +1,23 @@
-name: "TODO to issue"
-on: ["push"]
+name: Jira Example
+
+on: push
+
 jobs:
-  build:
-    runs-on: "ubuntu-latest"
+  todo:
+    runs-on: ubuntu-latest
+    name: Jira Example
     steps:
-      - uses: "actions/checkout@master"
-      - name: "TODO to Issue"
-        uses: "alstr/todo-to-issue-action@v3.0.5"
-        id: "todo"
-        with:
-          TOKEN: ${{ secrets.GITHUB_TOKEN }}
+    - name: Login
+      uses: atlassian/gajira-login@master
+      env:
+        JIRA_BASE_URL: ${{ secrets.JIRA_BASE_URL }}
+        JIRA_USER_EMAIL: ${{ secrets.JIRA_USER_EMAIL }}
+        JIRA_API_TOKEN: ${{ secrets.JIRA_API_TOKEN }}
+    - name: Jira TODO
+      uses: atlassian/gajira-todo@master
+      with:
+        project: SMKT
+        issuetype: Task
+        description: Created automatically via GitHub Actions
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
