@@ -1,11 +1,11 @@
-name: Jira Example
+name: Jira TODO
 
 on: push
 
 jobs:
   todo:
     runs-on: ubuntu-latest
-    name: Jira Example
+    name: Jira TODO
     steps:
     - name: Login
       uses: atlassian/gajira-login@master
@@ -13,7 +13,7 @@ jobs:
         JIRA_BASE_URL: ${{ secrets.JIRA_BASE_URL }}
         JIRA_USER_EMAIL: ${{ secrets.JIRA_USER_EMAIL }}
         JIRA_API_TOKEN: ${{ secrets.JIRA_API_TOKEN }}
-    - name: Jira TODO
+    - name: TODO
       uses: atlassian/gajira-todo@master
       with:
         project: SMKT
