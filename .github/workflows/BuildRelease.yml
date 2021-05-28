@@ -154,4 +154,4 @@ jobs:
           format: html
           message: |
             🛑 🛑 🛑
-            The job Docker for SMKT_Eu
+            The job Docker for SMKT_Eureka on ${{github.workflow}} <b>FAILED</b>.
