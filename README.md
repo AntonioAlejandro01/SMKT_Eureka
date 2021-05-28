@@ -52,14 +52,14 @@ Use this Service with Docker as Docker container. The Repo have 3 types of image
 #### Docker command
 
 ```bash
-    docker run -d -p8761:8761 -ePORT=8761 -t antonioalejandro:smkt-eureka:latest
+    docker run -d -p8761:8761 -ePORT=8761 -t antonioalejandro01/smkt-eureka:latest
  ```
 
 ## Use in Docker Compose
 
 ```yaml
     eureka:
-        image: antonioalejandro01/smkt-eureka:1
+        image: antonioalejandro01/smkt-eureka:latest
         container_name: smkt-eureka
         environment:
             PORT: 8761
