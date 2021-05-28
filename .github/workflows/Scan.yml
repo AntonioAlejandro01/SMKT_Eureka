@@ -1,4 +1,4 @@
-name: Scan and Lint
+name: Scan
 
 on:
   push:

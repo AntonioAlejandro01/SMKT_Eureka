@@ -4,6 +4,7 @@ on:
   push:
     tags:
     - '*'
+
 jobs:
   notify-init:
     name: Notify Init Action 
@@ -19,7 +20,7 @@ jobs:
           message: |
             🏁🏁🏁 
             <a href="${{github.server_url}}/${{github.repository}}/actions/runs/${{github.run_id}}">${{github.workflow}}</a>
-            Repo: ${{github.repository}} 
+            Repo: ${{github.repo}} 
             Initiated by <a href="${{github.server_url}}/${{github.actor}}">${{github.actor}}</a>.
   sonar:
     name: Sonar
@@ -50,7 +51,7 @@ jobs:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
         run: mvn -B verify org.sonarsource.scanner.maven:sonar-maven-plugin:sonar
   docker:
-    name: Docker
+    name: Docker build and push
     needs: [ sonar ]
     runs-on: ubuntu-latest
     steps:

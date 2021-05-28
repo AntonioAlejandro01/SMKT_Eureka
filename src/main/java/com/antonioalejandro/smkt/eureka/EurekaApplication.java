@@ -9,7 +9,7 @@ import org.springframework.cloud.netflix.eureka.server.EnableEurekaServer;
  * 
  * @author antonioalejandro01 - www.antonioalejandro.com
  * @version 1.0.0
- * @apiNote Entrypoint for Eureka Server
+ * @apiNote Entry point for Eureka Server
  *
  */
 @EnableEurekaServer
