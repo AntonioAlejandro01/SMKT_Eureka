@@ -18,7 +18,7 @@ jobs:
           message: |
             🏁🏁🏁 
             <a href="${{github.server_url}}/${{github.repository}}/actions/runs/${{github.run_id}}">${{github.workflow}}</a>
-            Repo: ${{github.repository}} 
+            Repo: ${{github.repo}} 
             Initiated by <a href="${{github.server_url}}/${{github.actor}}">${{github.actor}}</a>.
   sonar:
     name: Sonar
@@ -49,7 +49,7 @@ jobs:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
         run: mvn -B verify org.sonarsource.scanner.maven:sonar-maven-plugin:sonar
   docker:
-    name: Docker
+    name: Docker build and push
     needs: [ sonar ]
     runs-on: ubuntu-latest
     steps:
@@ -76,40 +76,24 @@ jobs:
         name: Image digest
         run: echo ${{ steps.docker_build.outputs.digest }}
   release:
-    name: Create Release
+    name: Create Prerelease
     runs-on: ubuntu-latest
     needs: [ docker ]
     steps:
     - uses: actions/checkout@v1
     - uses: ncipollo/release-action@v1
       with:
-        tag: main
+        tag: snapshot
+        prerelease: true
         allowUpdates: true
-        artifacts: "release.tar.gz,foo/*.txt"
         body: "# Snapshots Releases"
         name: Snapshot
         token: ${{ secrets.GITHUB_TOKEN }}
-  notify-final-ok:
-    name: Notify Success 
-    runs-on: ubuntu-latest
-    needs: [ sonar ]
-    if: ${{ success() }}
-    steps:
-      - name: Send Message
-        uses: appleboy/telegram-action@master
-        with:
-          to: ${{ secrets.TELEGRAM_TO }}
-          token: ${{ secrets.TELEGRAM_TOKEN }}
-          format: html
-          message: |
-            🆗 🆗 🆗
-            The job Scan for SMKT_Eureka on ${{github.workflow}} <b>SUCCESS</b>.
-            See the results <a href="https://sonarcloud.io/dashboard?id=AntonioAlejandro01_SMKT_Eureka">here</a>.
-  notify-final-failure:
+  notify-failure:
     name: Notify Failure 
     runs-on: ubuntu-latest
     if: ${{ failure() }}
-    needs: [ sonar ]
+    needs: [ release ]
     steps:
       - name: Send Message
         uses: appleboy/telegram-action@master
@@ -119,12 +103,11 @@ jobs:
           format: html
           message: |
             🛑 🛑 🛑
-            The job Scan for SMKT_Eureka on ${{github.workflow}} <b>FAILED</b>.
-            Please, see what can was wrong <a href="https://sonarcloud.io/dashboard?id=AntonioAlejandro01_SMKT_Eureka">here</a>
-  notify-final-docker-ok:
-    name: Notify Docker Success 
+            <a href="${{github.server_url}}/${{github.repository}}/actions/runs/${{github.run_id}}">${{github.workflow}}</a> for ${{github.repo}} <b>FAILED</b>.
+  notify-success:
+    name: Notify Success 
     runs-on: ubuntu-latest
-    needs: [ docker ]
+    needs: [ release ]
     if: ${{ success() }}
     steps:
       - name: Send Message
@@ -135,19 +118,4 @@ jobs:
           format: html
           message: |
             🆗 🆗 🆗
-            The job Docker for SMKT_Eureka on ${{github.workflow}} <b>SUCCESS</b>.
-  notify-final-docker-failure:
-    name: Notify Docker Failure 
-    runs-on: ubuntu-latest
-    if: ${{ failure() }}
-    needs: [ docker ]
-    steps:
-      - name: Send Message
-        uses: appleboy/telegram-action@master
-        with:
-          to: ${{ secrets.TELEGRAM_TO }}
-          token: ${{ secrets.TELEGRAM_TOKEN }}
-          format: html
-          message: |
-            🛑 🛑 🛑
-            The job Docker for SMKT_Eureka on branch ${{github.workflow}} <b>FAILED</b>.
+            ${{github.workflow}} on ${{github.repo}} <b>SUCCESS</b>.
