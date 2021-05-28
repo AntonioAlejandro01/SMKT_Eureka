@@ -55,12 +55,10 @@ jobs:
     needs: [ sonar ]
     runs-on: ubuntu-latest
     steps:
-      - name: Branch name
-        id: branch_name
-        run: |
-          echo ::set-output name=SOURCE_NAME::${GITHUB_REF#refs/*/}
-          echo ::set-output name=SOURCE_BRANCH::${GITHUB_REF#refs/heads/}
-          echo ::set-output name=SOURCE_TAG::${GITHUB_REF#refs/tags/}
+      -
+        name: Extract Tag Name 
+        uses: olegtarasov/get-tag@v2.1
+        id: tagName
       -
         name: Set up QEMU
         uses: docker/setup-qemu-action@v1
@@ -80,7 +78,7 @@ jobs:
         with:
           push: true
           tags:  |
-            ${{ secrets.DOCKERHUB_USERNAME }}/smkt-eureka:${{env.SOURCE_TAG}}
+            ${{ secrets.DOCKERHUB_USERNAME }}/smkt-eureka:${{env.GIT_TAG_NAME}}
             ${{ secrets.DOCKERHUB_USERNAME }}/smkt-eureka:latest
       -
         name: Image digest
@@ -101,12 +99,9 @@ jobs:
     if: ${{ failure() }}
     needs: [ release ]
     steps:
-      - name: Branch name
-        id: branch_name
-        run: |
-          echo ::set-output name=SOURCE_NAME::${GITHUB_REF#refs/*/}
-          echo ::set-output name=SOURCE_BRANCH::${GITHUB_REF#refs/heads/}
-          echo ::set-output name=SOURCE_TAG::${GITHUB_REF#refs/tags/}
+      - name: Extract Tag Name 
+        uses: olegtarasov/get-tag@v2.1
+        id: tagName
       - name: Send Message
         uses: appleboy/telegram-action@master
         with:
@@ -115,7 +110,7 @@ jobs:
           format: html
           message: |
             🛑 🛑 🛑
-            <a href="${{github.server_url}}/${{github.repository}}/actions/runs/${{github.run_id}}">${{github.workflow}}</a> for ${{github.repo}} tag ${{env.SOURCE_TAG}} <b>FAILED</b>.
+            <a href="${{github.server_url}}/${{github.repository}}/actions/runs/${{github.run_id}}">${{github.workflow}}</a> for ${{github.repo}} tag ${{env.GIT_TAG_NAME}} <b>FAILED</b>.
   notify-success:
     name: Notify Success 
     runs-on: ubuntu-latest
