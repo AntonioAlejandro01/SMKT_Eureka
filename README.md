@@ -1,9 +1,16 @@
 # SMKT_Eureka
 Eureka Discover Service for Smarkitchen App
 
-[![Build Dev](https://github.com/AntonioAlejandro01/SMKT_Eureka/actions/workflows/buildDevVersion.yml/badge.svg)](https://github.com/AntonioAlejandro01/SMKT_Eureka/actions/workflows/buildDevVersion.yml) [![Build Snapshot](https://github.com/AntonioAlejandro01/SMKT_Eureka/actions/workflows/BuildSnapshot.yml/badge.svg)](https://github.com/AntonioAlejandro01/SMKT_Eureka/actions/workflows/BuildSnapshot.yml) [![Build Release](https://github.com/AntonioAlejandro01/SMKT_Eureka/actions/workflows/BuildRelease.yml/badge.svg?branch=main)](https://github.com/AntonioAlejandro01/SMKT_Eureka/actions/workflows/Scan.yml) 
+![JAVA](https://img.shields.io/badge/Java-ED8B00?style=for-the-badge&logo=java&logoColor=white) ![Spring](https://img.shields.io/badge/Spring-6DB33F?style=for-the-badge&logo=spring&logoColor=white)
 
-[![Scan](https://github.com/AntonioAlejandro01/SMKT_Eureka/actions/workflows/Scan.yml/badge.svg?branch=main)](https://github.com/AntonioAlejandro01/SMKT_Eureka/actions/workflows/Scan.yml) [![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=AntonioAlejandro01_SMKT_Eureka&metric=alert_status)](https://sonarcloud.io/dashboard?id=AntonioAlejandro01_SMKT_Eureka)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT) 
+
+
+
+
+[![Build Dev](https://github.com/AntonioAlejandro01/SMKT_Eureka/actions/workflows/buildDevVersion.yml/badge.svg?branch=develop)](https://github.com/AntonioAlejandro01/SMKT_Eureka/actions/workflows/buildDevVersion.yml) [![Build Snapshot](https://github.com/AntonioAlejandro01/SMKT_Eureka/actions/workflows/BuildSnapshot.yml/badge.svg)](https://github.com/AntonioAlejandro01/SMKT_Eureka/actions/workflows/BuildSnapshot.yml) [![Build Stable Version](https://github.com/AntonioAlejandro01/SMKT_Eureka/actions/workflows/BuildRelease.yml/badge.svg)](https://github.com/AntonioAlejandro01/SMKT_Eureka/actions/workflows/BuildRelease.yml) 
+
+[![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=AntonioAlejandro01_SMKT_Eureka&metric=alert_status)](https://sonarcloud.io/dashboard?id=AntonioAlejandro01_SMKT_Eureka)
 
 
 ## Use With Docker
@@ -41,7 +48,7 @@ Use this Service with Docker as Docker container. The Repo have 3 types of image
 </thead>
 <tbody>
     <tr>
-        <td>port</td>
+        <td>PORT</td>
         <td>8761</td>
         <td>Micro service port</td>
     </tr>

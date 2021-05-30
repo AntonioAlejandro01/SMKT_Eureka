@@ -20,7 +20,7 @@ jobs:
           message: |
             🏁🏁🏁 
             <a href="${{github.server_url}}/${{github.repository}}/actions/runs/${{github.run_id}}">${{github.workflow}}</a>
-            Repo: ${{github.repo}} 
+            Repo: ${{github.repository}} 
             Initiated by <a href="${{github.server_url}}/${{github.actor}}">${{github.actor}}</a>.
   sonar:
     name: Sonar
@@ -110,7 +110,7 @@ jobs:
           format: html
           message: |
             🛑 🛑 🛑
-            <a href="${{github.server_url}}/${{github.repository}}/actions/runs/${{github.run_id}}">${{github.workflow}}</a> for ${{github.repo}} tag ${{env.GIT_TAG_NAME}} <b>FAILED</b>.
+            <a href="${{github.server_url}}/${{github.repository}}/actions/runs/${{github.run_id}}">${{github.workflow}}</a> for ${{github.repository}} tag ${{env.GIT_TAG_NAME}} <b>FAILED</b>.
   notify-success:
     name: Notify Success 
     runs-on: ubuntu-latest
@@ -125,4 +125,4 @@ jobs:
           format: html
           message: |
             🆗 🆗 🆗
-            ${{github.workflow}} on ${{github.repo}} <b>SUCCESS</b>.
+            ${{github.workflow}} on ${{github.repository}} <b>SUCCESS</b>.
