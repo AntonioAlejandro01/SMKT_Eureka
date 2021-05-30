@@ -19,19 +19,19 @@ Use this Service with Docker as Docker container. The Repo have 3 types of image
 
 ### Types
 
-- **Stable**: this are the images that in her tag is a specific version ex.: ```antonioalejandro01/smkt-eureka:vX.X.X```. the last tag version have latest tag. 
+- **Stable**: These are the images that in her tag have a specific version ex.: ```antonioalejandro01/smkt-eureka:vX.X.X```. The last tag version have tag latest. 
 ```bash
     docker pull antonioalejandro01/smkt-eureka:v1.0.0
     # The last stable version
     docker pull antonioalejandro01/smkt-eureka:latest
  ```
 
-- **Snapshot**: this are the images that in her tag is snapshot ex.: ```antonioalejandro01/smkt-eureka:snapshot```
+- **Snapshot**: This is the images that in her tag have snapshot word ex.: ```antonioalejandro01/smkt-eureka:snapshot```
 ```bash 
     docker pull antonioalejandro01/smkt-eureka:snapshot
 ```
 
-- **Dev**: this image is only for developers and in her tag have dev ```antonioalejandro01/smkt-eureka:dev```
+- **Dev**: This image is only for developers and in her tag have dev word ```antonioalejandro01/smkt-eureka:dev```
 ```bash
     docker pull antonioalejandro01/smkt-eureka:dev
  ```
