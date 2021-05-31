@@ -12,7 +12,7 @@ RUN mvn clean package  -Dmaven.test.skip
 
 RUN mv ./target/smkt-eureka.jar /app.jar
 
-FROM openjdk:11
+FROM openjdk:11-jre-slim
 
 WORKDIR /opt/server
 
