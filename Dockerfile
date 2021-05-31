@@ -1,10 +1,14 @@
-FROM maven:3-adoptopenjdk-11 as build
+FROM maven:3-openjdk-11 as Builder
 
-WORKDIR /opt/build
+WORKDIR /build
 
-COPY . .
+COPY pom.xml .
 
-RUN mvn clean compile install
+RUN mvn clean package -Dmaven.test.skip -Dmaven.main.skip -Dspring-boot.repackage.skip && rm -r target/
+
+COPY src ./src
+
+RUN mvn clean package  -Dmaven.test.skip
 
 RUN mv ./target/smkt-eureka.jar /app.jar
 
@@ -12,11 +16,9 @@ FROM openjdk:11
 
 WORKDIR /opt/server
 
-COPY --from=build /app.jar ./app.jar
+COPY --from=Builder /app.jar ./app.jar
 
-ARG port=8761
-
-ENV PORT ${port}
+ENV PORT=8761
 
 EXPOSE ${PORT}
 
